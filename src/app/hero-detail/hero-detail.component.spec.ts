@@ -39,23 +39,22 @@ describe('Hero detail component', () => {
     expect(fixture.nativeElement.querySelector('h2').textContent).toContain('SUPER DUDE');
   });
 
-  // it(`Should call updateHero when 'save' is called - observable`, fakeAsync(() => {
-  //   mockHeroServ.updateHero.and.returnValue(of({}));
-  //   fixture.detectChanges();
-  //   fixture.componentInstance.save();
-  //   tick(250);
-  //   expect(mockHeroServ.updateHero).toHaveBeenCalled();
-  // }));
-
-  it(`Should call updateHero when 'save' is called - promise`, async(() => {
+  it(`Should call updateHero when 'save' is called`, fakeAsync(() => {
     mockHeroServ.updateHero.and.returnValue(of({}));
     fixture.detectChanges();
     fixture.componentInstance.save();
-
-    fixture.whenStable().then(() => {
-      expect(mockHeroServ.updateHero).toHaveBeenCalled();
-    });
-
+    tick(250);
+    expect(mockHeroServ.updateHero).toHaveBeenCalled();
   }));
+
+  // it(`Should call updateHero when 'save' is called - promise`, async(() => {
+  //   mockHeroServ.updateHero.and.returnValue(of({}));
+  //   fixture.detectChanges();
+  //   fixture.componentInstance.save();
+
+  //   fixture.whenStable().then(() => {
+  //     expect(mockHeroServ.updateHero).toHaveBeenCalled();
+  //   });
+  // }));
 
 });
