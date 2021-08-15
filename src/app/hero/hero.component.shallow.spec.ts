@@ -22,4 +22,10 @@ describe('Hero Component "shallow tests"', () => {
     expect(fixture.componentInstance.hero.name).toEqual('Spider Dude');
   });
 
+  it('Should render hero name in html', () => {
+    fixture.componentInstance.hero = { id: 1, name: 'Spider Dude', strength: 8};
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('a').textContent).toContain('Spider Dude');
+  });
+
 });
