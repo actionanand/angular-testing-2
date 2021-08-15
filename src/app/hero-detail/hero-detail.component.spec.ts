@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from "@angular/core/testing";
+import { TestBed, ComponentFixture, fakeAsync, tick, async } from "@angular/core/testing";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -39,12 +39,23 @@ describe('Hero detail component', () => {
     expect(fixture.nativeElement.querySelector('h2').textContent).toContain('SUPER DUDE');
   });
 
-  it(`Should call updateHero when 'save' is called`, fakeAsync(() => {
+  // it(`Should call updateHero when 'save' is called - observable`, fakeAsync(() => {
+  //   mockHeroServ.updateHero.and.returnValue(of({}));
+  //   fixture.detectChanges();
+  //   fixture.componentInstance.save();
+  //   tick(250);
+  //   expect(mockHeroServ.updateHero).toHaveBeenCalled();
+  // }));
+
+  it(`Should call updateHero when 'save' is called - promise`, async(() => {
     mockHeroServ.updateHero.and.returnValue(of({}));
     fixture.detectChanges();
     fixture.componentInstance.save();
-    tick(250);
-    expect(mockHeroServ.updateHero).toHaveBeenCalled();
+
+    fixture.whenStable().then(() => {
+      expect(mockHeroServ.updateHero).toHaveBeenCalled();
+    });
+
   }));
 
 });
