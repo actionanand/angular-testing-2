@@ -48,7 +48,20 @@ describe('Heroes Componnet "Deep tests"', () => {
     for(let i = 0; i < heroComponentDEs.length; i++) {
       expect(heroComponentDEs[i].componentInstance.hero).toEqual(HEROES[i]);
     }
+  });
 
+  it(`Should call heroService.deleteHero when Hero
+  componnet's 'delete button is clicked'`, () => {
+    spyOn(component, 'delete');
+    mockHeroServ.getHeroes.and.returnValue(of(HEROES));
+
+    fixture.detectChanges();
+
+    const heroComponentDEs = fixture.debugElement.queryAll(By.directive(HeroComponent));
+
+    heroComponentDEs[0].query(By.css('button'))
+      .triggerEventHandler('click', { stopPropagation: () => {} });
+    expect(component.delete).toHaveBeenCalledWith(HEROES[0]);
   });
 
 });
