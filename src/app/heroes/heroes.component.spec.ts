@@ -29,5 +29,15 @@ describe('Hero Component', () => {
       expect(component.heroes.length).toBe(2, 'Heroes are not deleted, more found!');
     });
 
+    it('Should call deleteHero', () => {
+      mockHeroServ.deleteHero.and.returnValue(of(true));
+      component.heroes = HEROES;
+      // component.ngOnInit();
+
+      component.delete(HEROES[1]);
+      expect(mockHeroServ.deleteHero).toHaveBeenCalled(); // to check whether deleteHero was called
+      expect(mockHeroServ.deleteHero).toHaveBeenCalledWith(HEROES[1]);
+    });
+
   });
 });
